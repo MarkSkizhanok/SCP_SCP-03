@@ -1,0 +1,16 @@
+{
+    "name": "deploy",
+    "dependencies": {
+        "@sap/hdi-deploy": "^3.8.2"
+    },
+    "engines": {
+        "node": "^10"
+    },
+    "scripts": {
+        "postinstall": "node .build.js",
+        "start": "node node_modules/@sap/hdi-deploy/deploy.js"
+    },
+    "devDependencies": {
+        "fs-extra": "^8.1.0"
+    }
+}

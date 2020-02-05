@@ -1,0 +1,93 @@
+_schema-version: 2.0.0
+ID: coffeemachines
+version: 1.0.0
+
+modules:
+
+  - name: approuter
+    type: approuter.nodejs
+    path: approuter
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: coffeemachines-router
+      - name: coffeemachines-connectivity
+      - name: coffeemachines-destination
+      - name: coffeemachines-uaa
+      - name: srv
+        group: destinations
+        properties:
+          name: srv
+          url: "~{url}"
+          forwardAuthToken: true
+
+  - name: db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: coffeemachines-hdi
+    provides:
+      - name: db
+      
+  - name: srv
+    type: java
+    path: srv
+    properties:
+      SPRING_PROFILES_ACTIVE: cloud
+      db_service_instance_name: coffeemachines-hdi
+    build-parameters:
+      build-result: target/*.jar
+    parameters:
+      memory: 1024M
+      disk-quota: 1024M
+    provides:
+      - name: srv
+        properties:
+          url: ${default-url}
+    requires:
+      - name: db
+      - name: coffeemachines-hdi
+      - name: coffeemachines-uaa
+      - name: coffeemachines-destination
+      - name: coffeemachines-connectivity
+
+resources:
+
+  - name: coffeemachines-router
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: app-runtime
+      service: html5-apps-repo
+
+  - name: coffeemachines-connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-plan: lite
+
+  - name: coffeemachines-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+        
+  - name: coffeemachines-hdi
+    type: com.sap.xs.hdi-container
+    parameters:
+      service-plan: hdi-shared
+      service: hanatrial
+      config: { schema: COFFEEMACHINE_SAMPLE_SCP }
+    properties:
+      hdi-container-name: ${service-name}
+
+  - name: coffeemachines-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+

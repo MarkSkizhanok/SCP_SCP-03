@@ -1,0 +1,10 @@
+---
+spring:
+  datasource:
+    url:             url
+    username:        user_name
+    password:        pass
+    driverClassName: com.sap.db.jdbc.Driver
+    type:            com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximumPoolSize: 10

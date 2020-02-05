@@ -1,0 +1,22 @@
+{
+	"VCAP_SERVICES": {
+		"xsuaa": [
+			{
+				"label": "xsuaa",
+				"provider": null,
+				"plan": "application",
+				"name": "coffeemachines-uaa",
+				"tags": [
+					"xsuaa"
+				],
+				"instance_name": "coffeemachines-uaa",
+				"binding_name": null,
+				"credentials": {
+
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		]
+	}
+}

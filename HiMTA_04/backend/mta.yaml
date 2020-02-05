@@ -1,0 +1,47 @@
+﻿ID: lev_backend_zskiz_hw3
+_schema-version: 3.1.0
+version: 1.0.0
+
+modules:
+    -
+        name: lev_db_zskiz_hw3
+        type: hdb
+        path: db
+        provides:
+            - {name: lev_db_zskiz_hw3, public: true}
+        parameters:
+            memory: 256M
+            disk-quota: 256M
+        requires:
+            - {name: lev_hdi_zskiz_hw3}
+    -
+        name: lev_srv_zskiz_hw3
+        type: nodejs
+        path: srv
+        properties:
+            XS_APP_LOG_LEVEL: debug
+        parameters:
+            memory: 256M
+            disk-quota: 1024M
+        provides:
+            - {name: lev_srv_zskiz_hw3, public: true, properties: {url: '${default-url}'}}
+        requires:
+            - {name: lev_db_zskiz_hw3}
+            - {name: lev_hdi_zskiz_hw3}
+            - {name: lev_uaa_zskiz_hw3}
+            - {name: lev_dest_zskiz_hw3}
+            - {name: lev_conn_zskiz_hw3}
+
+resources:
+    -
+        name: lev_hdi_zskiz_hw3
+        type: org.cloudfoundry.existing-service
+    -
+        name: lev_uaa_zskiz_hw3
+        type: org.cloudfoundry.existing-service
+    -
+        name: lev_dest_zskiz_hw3
+        type: org.cloudfoundry.existing-service
+    -
+        name: lev_conn_zskiz_hw3
+        type: org.cloudfoundry.existing-service

@@ -1,0 +1,82 @@
+{
+	"VCAP_SERVICES": {
+		"xsuaa": [
+			{
+				"label": "xsuaa",
+				"provider": null,
+				"plan": "application",
+				"name": "coffeemachines-uaa",
+				"tags": [
+					"xsuaa"
+				],
+				"instance_name": "coffeemachines-uaa",
+				"binding_name": null,
+				"credentials": {
+
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
+		"hanatrial": [
+			{
+				"label": "hanatrial",
+				"provider": null,
+				"plan": "hdi-shared",
+				"name": "coffeemachines-hdi",
+				"tags": [
+					"hana",
+					"database",
+					"relational"
+				],
+				"instance_name": "coffeemachines-hdi",
+				"binding_name": null,
+				"credentials": {
+
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
+		"destination": [
+			{
+				"label": "destination",
+				"provider": null,
+				"plan": "lite",
+				"name": "coffeemachines-destination",
+				"tags": [
+					"destination",
+					"conn",
+					"connsvc"
+				],
+				"instance_name": "coffeemachines-destination",
+				"binding_name": null,
+				"credentials": {
+					
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
+		"connectivity": [
+			{
+				"label": "connectivity",
+				"provider": null,
+				"plan": "lite",
+				"name": "coffeemachines-connectivity",
+				"tags": [
+					"connectivity",
+					"conn",
+					"connsvc"
+				],
+				"instance_name": "coffeemachines-connectivity",
+				"binding_name": null,
+				"credentials": {
+					
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		]
+	}
+}
